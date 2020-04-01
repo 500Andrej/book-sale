@@ -1,15 +1,17 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import 'semantic-ui-less/semantic.less';
+import { Message } from 'semantic-ui-react'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.f
-        </p>
+        <Message warning >
+          Edit <code>src/App.tsx</code> and save to reload.
+        </Message>
         <a
           className="App-link"
           href="https://reactjs.org"
