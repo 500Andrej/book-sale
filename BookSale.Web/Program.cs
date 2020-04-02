@@ -1,7 +1,8 @@
 using System;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NLog.Web;
+using Microsoft.Extensions.Logging;
 
 namespace BookSale.Web
 {
@@ -9,27 +10,22 @@ namespace BookSale.Web
     {
         public static void Main(string[] args)
         {
-            var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+            var host = CreateHostBuilder(args).Build();
+            var logger = host.Services.GetRequiredService<ILogger<Program>>();
             try
             {
-                logger.Debug($"init main in {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")} ENVIRONMENT");
-                CreateHostBuilder(args).Build().Run();
+                logger.LogDebug($"init main in {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")} ENVIRONMENT");
+                host.Run();
             }
             catch (Exception exception)
             {
-                logger.Error(exception, "Stopped program because of exception");
+                logger.LogDebug(exception, "Stopped program because of exception");
                 throw;
             }
-            finally
-            {
-                NLog.LogManager.Shutdown();
-            }
-            
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .UseNLog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
