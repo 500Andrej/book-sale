@@ -1,0 +1,14 @@
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Mapping\bin\Debug\netcoreapp3.1\BookSale.Mapping.deps.json
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Mapping\bin\Debug\netcoreapp3.1\BookSale.Mapping.dll
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Mapping\obj\Debug\netcoreapp3.1\BookSale.Mapping.AssemblyInfoInputs.cache
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Mapping\obj\Debug\netcoreapp3.1\BookSale.Mapping.AssemblyInfo.cs
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Mapping\bin\Debug\netcoreapp3.1\BookSale.Mapping.pdb
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Mapping\bin\Debug\netcoreapp3.1\BookSale.Business.dll
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Mapping\bin\Debug\netcoreapp3.1\BookSale.Data.dll
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Mapping\bin\Debug\netcoreapp3.1\BookSale.Business.pdb
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Mapping\bin\Debug\netcoreapp3.1\BookSale.Data.pdb
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Mapping\obj\Debug\netcoreapp3.1\BookSale.Mapping.csprojAssemblyReference.cache
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Mapping\obj\Debug\netcoreapp3.1\BookSale.Mapping.csproj.CoreCompileInputs.cache
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Mapping\obj\Debug\netcoreapp3.1\BookSale.Mapping.csproj.CopyComplete
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Mapping\obj\Debug\netcoreapp3.1\BookSale.Mapping.dll
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Mapping\obj\Debug\netcoreapp3.1\BookSale.Mapping.pdb

@@ -1,0 +1,12 @@
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Data\bin\Debug\netcoreapp3.1\BookSale.Data.deps.json
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Data\bin\Debug\netcoreapp3.1\BookSale.Data.dll
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Data\obj\Debug\netcoreapp3.1\BookSale.Data.csprojAssemblyReference.cache
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Data\obj\Debug\netcoreapp3.1\BookSale.Data.AssemblyInfoInputs.cache
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Data\obj\Debug\netcoreapp3.1\BookSale.Data.AssemblyInfo.cs
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Data\bin\Debug\netcoreapp3.1\BookSale.Data.runtimeconfig.json
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Data\bin\Debug\netcoreapp3.1\BookSale.Data.runtimeconfig.dev.json
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Data\obj\Debug\netcoreapp3.1\BookSale.Data.genruntimeconfig.cache
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Data\bin\Debug\netcoreapp3.1\BookSale.Data.pdb
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Data\obj\Debug\netcoreapp3.1\BookSale.Data.csproj.CoreCompileInputs.cache
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Data\obj\Debug\netcoreapp3.1\BookSale.Data.dll
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Data\obj\Debug\netcoreapp3.1\BookSale.Data.pdb

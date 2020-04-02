@@ -1,0 +1,12 @@
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Business\bin\Debug\netcoreapp3.1\BookSale.Business.deps.json
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Business\bin\Debug\netcoreapp3.1\BookSale.Business.dll
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Business\obj\Debug\netcoreapp3.1\BookSale.Business.csprojAssemblyReference.cache
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Business\obj\Debug\netcoreapp3.1\BookSale.Business.AssemblyInfoInputs.cache
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Business\obj\Debug\netcoreapp3.1\BookSale.Business.AssemblyInfo.cs
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Business\bin\Debug\netcoreapp3.1\BookSale.Business.pdb
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Business\bin\Debug\netcoreapp3.1\BookSale.Data.dll
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Business\bin\Debug\netcoreapp3.1\BookSale.Data.pdb
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Business\obj\Debug\netcoreapp3.1\BookSale.Business.csproj.CoreCompileInputs.cache
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Business\obj\Debug\netcoreapp3.1\BookSale.Business.csproj.CopyComplete
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Business\obj\Debug\netcoreapp3.1\BookSale.Business.dll
+C:\Users\Mi\Documents\GitHub\book-sale\BookSale.Business\obj\Debug\netcoreapp3.1\BookSale.Business.pdb

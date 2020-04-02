@@ -1,7 +1,13 @@
+using System.Reflection;
+using AutoMapper;
+using BookSale.Business.Implementations;
+using BookSale.Business.Interfaces;
+using BookSale.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +29,11 @@ namespace BookSale.Web
 
             services.AddControllersWithViews();
 
+            services
+                .AddAutoMapper(Assembly.Load("BookSale.Mapping"))
+                .AddScoped<IPromoCodeService, PromoCodeService>()
+                .AddDbContext<BookSaleDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BookSaleDb")));
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -35,7 +46,7 @@ namespace BookSale.Web
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
             }
             else
             {
