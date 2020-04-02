@@ -20,10 +20,10 @@ namespace BookSale.Business.Implementations
 
         public async Task<PromoCodeModel> GenerateNewPromoCode()
         {
-            var promoCodeModel = await DataContext.PromoCodes.AddAsync(new PromoCodeEntity
+            var promoCodeModel = (await DataContext.PromoCodes.AddAsync(new PromoCodeEntity
             {
                 State = PromoCodeState.Active
-            });
+            })).Entity;
 
             await DataContext.SaveChangesAsync();
 
