@@ -1,28 +1,51 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Router, Switch, Route } from "react-router";
+import { Catalog } from "./components/Catalog";
+import { Basket } from "./components/Basket";
+import { Link } from "react-router-dom";
+import { Menu } from "semantic-ui-react"
 import 'semantic-ui-less/semantic.less';
-import { Message } from 'semantic-ui-react'
+import { createBrowserHistory } from 'history';
+import { observer } from 'mobx-react';
+import { Store } from './store';
+import { Login } from './Login';
+const history = createBrowserHistory();
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Message warning >
-          Edit <code>src/App.tsx</code> and save to reload.
-        </Message>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface IAppProps {
+    promoCode?: string;
 }
 
-export default App;
+function AppCompoent(props: IAppProps) {
+    return (
+        props.promoCode
+            ? <Router history={history}>
+                <div>
+                    <Menu stackable>
+                        <Menu.Item>
+                            <img src='https://react.semantic-ui.com/logo.png' alt='лого' />
+                        </Menu.Item>
+                        <Menu.Item as={Link} name='catalog' to='/'>
+                            Каталог
+                    </Menu.Item>
+                        <Menu.Item as={Link} name='basket' to='/basket'>
+                            Корзина
+                    </Menu.Item>
+                    <Menu.Item>
+                            Промокод: {props.promoCode}
+                        </Menu.Item>
+                    </Menu>
+                    <Switch>
+                        <Route path="/basket">
+                            <Basket />
+                        </Route>
+                        <Route path="/">
+                            <Catalog />
+                        </Route>
+                    </Switch>
+                </div>
+            </Router>
+            : <Login />
+    );
+}
+
+export const App = observer(() => <AppCompoent promoCode={Store.promoCode} />)

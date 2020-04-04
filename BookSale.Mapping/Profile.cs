@@ -6,9 +6,9 @@ using BookSale.Data.Entities;
 
 namespace BookSale.Mapping
 {
-    public class DomainProfile : Profile
+    public class Profile : AutoMapper.Profile
     {
-        public DomainProfile()
+        public Profile()
         {
             // Domain to entities
             CreateMap<BookModel, BookEntity>();

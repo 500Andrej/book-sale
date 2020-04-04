@@ -30,7 +30,7 @@ namespace BookSale.Web
             services.AddControllersWithViews();
 
             services
-                .AddAutoMapper(Assembly.Load("BookSale.Mapping"))
+                .AddAutoMapper(Assembly.Load("BookSale.Mapping"), typeof(AutoMapperProfile).Assembly)
                 .AddScoped<IPromoCodeService, PromoCodeService>()
                 .AddScoped<IBookService, BookService>()
                 .AddDbContext<BookSaleDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BookSaleDb")));

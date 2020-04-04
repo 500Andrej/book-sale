@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using BookSale.Web.ViewModels;
 
 namespace BookSale.Web.Controllers
@@ -13,16 +14,20 @@ namespace BookSale.Web.Controllers
     public class BookController : ControllerBase
     {
         private readonly IBookService _bookService;
+        private readonly IMapper _mapper;
 
-        public BookController(IBookService bookService)
+        public BookController(IBookService bookService, IMapper mapper)
         {
             _bookService = bookService;
+            _mapper = mapper;
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<BookModel>> GetAll()
+        public async Task<IEnumerable<BookViewModel>> All()
         {
-            return await _bookService.GetAllBooks();
+            var books = await _bookService.GetAllBooks();
+
+            return _mapper.Map<IEnumerable<BookViewModel>>(books);
         }
 
         [HttpPost("[action]")]
