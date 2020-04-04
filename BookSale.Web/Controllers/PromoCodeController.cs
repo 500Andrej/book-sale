@@ -17,7 +17,7 @@ namespace BookSale.Web.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<Guid> GenerateNewCode()
+        public async Task<Guid> GenerateNew()
         {
             var newPromoCode = await _promoCodeService.GenerateNewPromoCode();
             return newPromoCode.PromoCode;

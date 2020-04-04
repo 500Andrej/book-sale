@@ -3,6 +3,7 @@ using AutoMapper;
 using BookSale.Business.Implementations;
 using BookSale.Business.Interfaces;
 using BookSale.Data;
+using BookSale.Web.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -31,6 +32,7 @@ namespace BookSale.Web
             services
                 .AddAutoMapper(Assembly.Load("BookSale.Mapping"))
                 .AddScoped<IPromoCodeService, PromoCodeService>()
+                .AddScoped<IBookService, BookService>()
                 .AddDbContext<BookSaleDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BookSaleDb")));
 
             // In production, the React files will be served from this directory
@@ -53,6 +55,11 @@ namespace BookSale.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseExceptionHandler(new ExceptionHandlerOptions
+            {
+                ExceptionHandler = new JsonExceptionMiddleware().Invoke
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

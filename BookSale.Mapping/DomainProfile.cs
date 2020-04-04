@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AutoMapper;
 using BookSale.Business.Models;
 using BookSale.Data.Entities;
@@ -15,8 +16,9 @@ namespace BookSale.Mapping
             CreateMap<PromoCodeModel, PromoCodeEntity>();
 
             // Entities to domain 
-            CreateMap<BookEntity, BookModel>();
             CreateMap<AuthorEntity, AuthorModel>();
+            CreateMap<BookEntity, BookModel>()
+                .ForMember(dest => dest.Authors, o => o.MapFrom(src => src.BookAuthors.Select(ba => ba.Author)));
             CreateMap<PromoCodeEntity, PromoCodeModel>();
         }
     }
