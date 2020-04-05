@@ -7,7 +7,8 @@ export const PromocodeStore: IPromocodeStore = observable(getDefaultPromocodeSta
 
 export function getDefaultState(): IStore {
     return {
-        promoCode: undefined,
+        promoCode: '',
+        loginRequestExecutionStatus: RequestExecutionStatus.Undefined,
         catalog: new CatalogModel(),
         basket: [],
     }

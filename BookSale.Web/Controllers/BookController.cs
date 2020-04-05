@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using BookSale.Business.Interfaces;
 using BookSale.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -31,15 +32,19 @@ namespace BookSale.Web.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult> Buy(BayBookViewModel bayBookModel)
+        public async Task<ActionResult> Buy([FromBody] IEnumerable<BuyBookViewModel> bayBookModel)
         {
+            if (bayBookModel == null)
+            {
+                return BadRequest(new { message = "Не передано не одной книги для покупки" });
+            }
             if (!ModelState.IsValid)
             {
                 var errors = ModelState.SelectMany(x => x.Value.Errors);
 
-                return new JsonResult(new { message = string.Join(", ", errors) });
+                return BadRequest(new { message = string.Join(", ", errors) });
             }
-            await _bookService.BuyBook(bayBookModel.BookId, bayBookModel.Count);
+            await _bookService.BuyBook(bayBookModel.ToDictionary(book => book.BookId, book => book.Count));
             return Ok();
         }
     }

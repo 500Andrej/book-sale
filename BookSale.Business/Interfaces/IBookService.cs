@@ -8,6 +8,6 @@ namespace BookSale.Business.Interfaces
     {
         Task<CatalogModel> GetBooks(int pageIndex, int pageSize);
 
-        Task BuyBook(int bookId, int count);
+        Task BuyBook(Dictionary<int, int> booksIdsWithCountToBuy);
     }
 }

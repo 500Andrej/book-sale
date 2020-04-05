@@ -11,7 +11,8 @@ export interface IPromocodeStore {
 }
 
 export interface IStore {
-    promoCode?: string;
+    promoCode: string;
+    loginRequestExecutionStatus: RequestExecutionStatus;
     catalog: CatalogModel;
     basket: BookModel[];
 }

@@ -27,9 +27,10 @@ namespace BookSale.Web.Controllers
             return _mapper.Map<PromoCodeViewModel>(newPromoCode);
         }
 
-        //public async Task<bool> CodeIsValid()
-        //{
-
-        //}
+        [HttpGet("[action]/{promoCode}")]
+        public async Task<bool> CodeIsValid(Guid promoCode)
+        {
+            return await _promoCodeService.CodeIsValid(promoCode);
+        }
     }
 }

@@ -47,27 +47,30 @@ namespace BookSale.Business.Implementations
             };
         }
 
-        public async Task BuyBook(int bookId, int count)
+        public async Task BuyBook(Dictionary<int, int> booksIdsWithCountToBuy)
         {
-            if (bookId < 0)
+            if (booksIdsWithCountToBuy == null)
             {
-                throw new ArgumentException(nameof(bookId));
+                throw new ArgumentNullException(nameof(booksIdsWithCountToBuy));
             }
-            if (count < 0)
+
+            var bookIds = booksIdsWithCountToBuy.Select(bc => bc.Key);
+            var targetBook = await DataContext.Books.Where(book => bookIds.Contains(book.Id)).ToListAsync();
+
+            if (targetBook == null || bookIds.Count() != targetBook.Count)
             {
-                throw new ArgumentException(nameof(count));
+                throw new InvalidOperationException("Target books not founded");
             }
-            var targetBook = await DataContext.Books.FirstOrDefaultAsync(book => book.Id == bookId);
-            if (targetBook == null)
+            if (targetBook.Sum(book => book.Amount) <= 2000)
             {
-                throw new InvalidOperationException("Target book not fount");
+                throw new InvalidOperationException("Insufficient amount to buy");
             }
-            if (targetBook.Count < count)
+            if (targetBook.Any(book => book.Count < booksIdsWithCountToBuy[book.Id]))
             {
                 throw new InvalidOperationException("Not enough books");
             }
 
-            targetBook.Count = targetBook.Count - count;
+            targetBook.ForEach(book => book.Count -= booksIdsWithCountToBuy[book.Id]);
 
             await DataContext.SaveChangesAsync();
         }

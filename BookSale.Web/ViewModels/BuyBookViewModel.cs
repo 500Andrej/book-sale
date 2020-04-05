@@ -2,7 +2,7 @@
 
 namespace BookSale.Web.ViewModels
 {
-    public class BayBookViewModel
+    public class BuyBookViewModel
     {
         [Required]
         [Range(0, int.MaxValue, ErrorMessage = "Идентификатор книги должен быть положительным")]
