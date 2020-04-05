@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -19,15 +20,31 @@ namespace BookSale.Business.Implementations
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<BookModel>> GetAllBooks()
+        public async Task<CatalogModel> GetBooks(int pageIndex, int pageSize)
         {
+            if (pageIndex < 1)
+            {
+                throw new ArgumentException(nameof(pageIndex));
+            }
+            if (pageSize < 1)
+            {
+                throw new ArgumentException(nameof(pageSize));
+            }
+            var totalCount = await DataContext.Books.CountAsync();
+
             var books = await DataContext.Books
                 .Include(book => book.BookAuthors)
                 .ThenInclude(bookAuthors => bookAuthors.Author)
                 .ProjectTo<BookModel>(_mapper.ConfigurationProvider)
+                .Skip(pageSize * (pageIndex - 1))
+                .Take(pageSize)
                 .ToListAsync();
 
-            return books;
+            return new CatalogModel
+            {
+                Books = books,
+                TotalCount = totalCount
+            };
         }
 
         public async Task BuyBook(int bookId, int count)

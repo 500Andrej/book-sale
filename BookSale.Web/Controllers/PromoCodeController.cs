@@ -26,5 +26,10 @@ namespace BookSale.Web.Controllers
             var newPromoCode = await _promoCodeService.GenerateNewPromoCode();
             return _mapper.Map<PromoCodeViewModel>(newPromoCode);
         }
+
+        //public async Task<bool> CodeIsValid()
+        //{
+
+        //}
     }
 }

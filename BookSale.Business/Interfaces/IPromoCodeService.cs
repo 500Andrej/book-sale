@@ -8,6 +8,6 @@ namespace BookSale.Business.Interfaces
     {
         Task<PromoCodeModel> GenerateNewPromoCode();
 
-        Task<bool> ThisCodeIsValid(Guid promoCode);
+        Task<bool> CodeIsValid(Guid promoCode);
     }
 }

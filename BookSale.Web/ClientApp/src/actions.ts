@@ -3,6 +3,7 @@ import { RequestExecutionStatus, BookModel, IBook } from './types';
 import { Store, PromocodeStore } from './store';
 import { handleResponse } from './utils';
 
+
 export async function getPromocode() {
     runInAction(() => PromocodeStore.getPromocodeRequestExecutionStatus = RequestExecutionStatus.InProgress);
     try {
@@ -18,33 +19,39 @@ export async function getPromocode() {
     catch {
         runInAction(() => PromocodeStore.getPromocodeRequestExecutionStatus = RequestExecutionStatus.Fail);
     }
-} 
+}
 
-export function SetPromocode(value: string){
+export function SetPromocode(value: string) {
     runInAction(() => {
         PromocodeStore.promoCode = value;
     });
 }
 
-export function Login(){
+export function Login() {
     runInAction(() => {
         Store.promoCode = PromocodeStore.promoCode;
     });
 }
 
-export async function getCatalog() {
-    runInAction(() => Store.getBooksRequestExecutionStatus = RequestExecutionStatus.InProgress);
+export async function getCatalog(pageIndex: number, pageSize: number) {
+    runInAction(() => Store.catalog = { ...Store.catalog, getCatalogRequestExecutionStatus: RequestExecutionStatus.InProgress });
     try {
-        var responce = await fetch('/book/all');
-        var books = await handleResponse(responce);
-        if (books) {
-            runInAction(() => {
-                Store.catalog = books.map((book: IBook) => new BookModel(book));
-                Store.getBooksRequestExecutionStatus = RequestExecutionStatus.Success;
+        var responce = await fetch(`/book/catalog/${pageIndex}/${pageSize}`, {
+            headers: {
+                'Authorization': Store.promoCode ? Store.promoCode : ''
+              },
+        });
+        var catalog = await handleResponse(responce);
+        if (catalog) {
+            runInAction(() => Store.catalog = {
+                ...Store.catalog,
+                books: catalog.books.map((book: IBook) => new BookModel(book)),
+                totalCount: catalog.totalCount,
+                getCatalogRequestExecutionStatus: RequestExecutionStatus.Success
             });
         }
     }
     catch {
-        runInAction(() => Store.getBooksRequestExecutionStatus = RequestExecutionStatus.Fail);
+        runInAction(() => runInAction(() => Store.catalog = { ...Store.catalog, getCatalogRequestExecutionStatus: RequestExecutionStatus.Fail }));
     }
 } 

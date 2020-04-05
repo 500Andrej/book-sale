@@ -1,16 +1,16 @@
-﻿using BookSale.Business.Interfaces;
-using BookSale.Business.Models;
+﻿using AutoMapper;
+using BookSale.Business.Interfaces;
+using BookSale.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using BookSale.Web.ViewModels;
+using BookSale.Web.Attributes;
 
 namespace BookSale.Web.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [PromoCodeRequirement]
     public class BookController : ControllerBase
     {
         private readonly IBookService _bookService;
@@ -22,12 +22,12 @@ namespace BookSale.Web.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("[action]")]
-        public async Task<IEnumerable<BookViewModel>> All()
+        [HttpGet("[action]/{pageIndex}/{pageSize}")]
+        public async Task<CatalogViewModel> Catalog(int pageIndex, int pageSize)
         {
-            var books = await _bookService.GetAllBooks();
+            var catalog = await _bookService.GetBooks(pageIndex, pageSize);
 
-            return _mapper.Map<IEnumerable<BookViewModel>>(books);
+            return _mapper.Map<CatalogViewModel>(catalog);
         }
 
         [HttpPost("[action]")]

@@ -13,6 +13,8 @@ namespace BookSale.Web
                 .ForMember(dest => dest.Authors, o => o.MapFrom(src => src.Authors.Select(author => $"{author.FirstName} {author.LastName} {author.Patronymic}")));
 
             CreateMap<PromoCodeModel, PromoCodeViewModel>();
+
+            CreateMap<CatalogModel, CatalogViewModel>();
         }
     }
 }

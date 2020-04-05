@@ -66,6 +66,7 @@ namespace BookSale.Web
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

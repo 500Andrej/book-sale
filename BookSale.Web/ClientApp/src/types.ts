@@ -12,10 +12,8 @@ export interface IPromocodeStore {
 
 export interface IStore {
     promoCode?: string;
-
-    catalog: BookModel[];
+    catalog: CatalogModel;
     basket: BookModel[];
-    getBooksRequestExecutionStatus: RequestExecutionStatus;
 }
 
 export interface IBook {
@@ -27,6 +25,20 @@ export interface IBook {
     amount: number;
     count: number;
     authors: string[];
+}
+
+export class CatalogModel {
+    books: BookModel[];
+    totalCount: number;
+
+    getCatalogRequestExecutionStatus: RequestExecutionStatus;
+
+
+    constructor(dto?: { books: IBook[], totalCount: number }) {
+        this.books = []
+        this.totalCount = 0;
+        this.getCatalogRequestExecutionStatus = RequestExecutionStatus.Undefined;
+    }
 }
 
 export class BookModel {

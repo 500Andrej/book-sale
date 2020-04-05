@@ -1,5 +1,5 @@
 import { observable } from 'mobx';
-import { IStore, RequestExecutionStatus, IPromocodeStore } from './types';
+import { IStore, RequestExecutionStatus, IPromocodeStore, CatalogModel } from './types';
 
 export const Store: IStore = observable(getDefaultState());
 
@@ -8,9 +8,8 @@ export const PromocodeStore: IPromocodeStore = observable(getDefaultPromocodeSta
 export function getDefaultState(): IStore {
     return {
         promoCode: undefined,
-        catalog: [],
+        catalog: new CatalogModel(),
         basket: [],
-        getBooksRequestExecutionStatus: RequestExecutionStatus.Undefined
     }
 }
 

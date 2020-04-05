@@ -1,25 +1,30 @@
 import React from 'react';
-import { Table, Label, Menu, Icon, Message, Dimmer, Loader, Image } from 'semantic-ui-react';
+import { Table, Label, Menu, Icon, Message, Dimmer, Loader, Image, Button } from 'semantic-ui-react';
 import { IBook, RequestExecutionStatus, BookModel } from '../types';
 import { getCatalog } from '../actions';
 import { observer } from 'mobx-react';
 import { Store } from '../store';
+import { RouteComponentProps, Link } from 'react-router-dom';
 
-interface ICatalogProps {
+interface ICatalogProps extends RouteComponentProps<{ page: string }> {
+  totalCount: number;
   books: BookModel[];
-  getBooksRequestExecutionStatus: RequestExecutionStatus;
+  getCatalogRequestExecutionStatus: RequestExecutionStatus;
 }
 
-class CatalogComponent extends React.PureComponent<ICatalogProps>{
+class CatalogComponent extends React.Component<ICatalogProps>{
+  pageSize = 20;
+
   componentDidMount() {
-    getCatalog()
+    let pageIndex = +this.props.match.params.page;
+    getCatalog(pageIndex ? pageIndex : 1, this.pageSize);
   }
 
   render() {
-    return this.props.getBooksRequestExecutionStatus === RequestExecutionStatus.Fail
+    return this.props.getCatalogRequestExecutionStatus === RequestExecutionStatus.Fail
       ? <Message error>Во время загрузки каталога произошла ошибка</Message>
       : <div>
-        {this.props.getBooksRequestExecutionStatus === RequestExecutionStatus.InProgress
+        {this.props.getCatalogRequestExecutionStatus === RequestExecutionStatus.InProgress
           ? <Dimmer active inverted><Loader inverted>Загрузка</Loader></Dimmer>
           : null}
         <Table celled>
@@ -32,6 +37,7 @@ class CatalogComponent extends React.PureComponent<ICatalogProps>{
               <Table.HeaderCell>Год</Table.HeaderCell>
               <Table.HeaderCell>Стоимость</Table.HeaderCell>
               <Table.HeaderCell>Кол-во</Table.HeaderCell>
+              <Table.HeaderCell>Купить</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -49,30 +55,43 @@ class CatalogComponent extends React.PureComponent<ICatalogProps>{
                 <Table.Cell>{book.releaseDate.getFullYear()}</Table.Cell>
                 <Table.Cell>{book.amount} р.</Table.Cell>
                 <Table.Cell>{book.count}</Table.Cell>
+                <Table.Cell>
+                  <Button
+                    color='teal'
+                    content='Купить'
+                    icon='add'
+                  //onClick={() => getPromocode()}
+                  //disabled={props.getPromocodeRequestExecutionStatus === RequestExecutionStatus.InProgress}
+                  /></Table.Cell>
               </Table.Row>
             })}
           </Table.Body>
-          <Table.Footer>
-            <Table.Row>
-              <Table.HeaderCell colSpan='7'>
-                <Menu floated='right' pagination>
-                  <Menu.Item as='a' icon>
-                    <Icon name='chevron left' />
-                  </Menu.Item>
-                  <Menu.Item as='a'>1</Menu.Item>
-                  <Menu.Item as='a'>2</Menu.Item>
-                  <Menu.Item as='a'>3</Menu.Item>
-                  <Menu.Item as='a'>4</Menu.Item>
-                  <Menu.Item as='a' icon>
-                    <Icon name='chevron right' />
-                  </Menu.Item>
-                </Menu>
-              </Table.HeaderCell>
-            </Table.Row>
-          </Table.Footer>
+          {this.props.totalCount > this.pageSize
+            ? <Table.Footer>
+              <Table.Row>
+                <Table.HeaderCell colSpan='8'>
+                  <Menu floated='right' pagination>
+                    {Array.from(Array(Math.ceil(this.props.totalCount / this.pageSize)).keys())
+                      .map(i => {
+                        let pageIndex = i + 1;
+                        return <Menu.Item
+                          as={Link} to={`/catalog/${pageIndex}`}
+                          key={pageIndex}
+                          onClick={() => getCatalog(pageIndex, this.pageSize)}>
+                          {pageIndex}
+                        </Menu.Item>
+                      })}
+                  </Menu>
+                </Table.HeaderCell>
+              </Table.Row>
+            </Table.Footer>
+            : null}
         </Table>
       </div>
   }
 }
 
-export const Catalog = observer(() => <CatalogComponent books={Store.catalog} getBooksRequestExecutionStatus={Store.getBooksRequestExecutionStatus} />)
+export const Catalog = observer((props: ICatalogProps) => <CatalogComponent
+  {...props}
+  {...Store.catalog}
+/>)

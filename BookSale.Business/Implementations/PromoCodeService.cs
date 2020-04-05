@@ -30,7 +30,7 @@ namespace BookSale.Business.Implementations
             return _mapper.Map<PromoCodeModel>(promoCodeModel);
         }
 
-        public async Task<bool> ThisCodeIsValid(Guid promoCode)
+        public async Task<bool> CodeIsValid(Guid promoCode)
         {
             var promoCodeModel = await DataContext.PromoCodes.FirstOrDefaultAsync(code => code.PromoCode == promoCode);
             return promoCodeModel != null && promoCodeModel.State == PromoCodeState.Active;

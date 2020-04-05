@@ -6,7 +6,7 @@ namespace BookSale.Business.Interfaces
 {
     public interface IBookService
     {
-        Task<IEnumerable<BookModel>> GetAllBooks();
+        Task<CatalogModel> GetBooks(int pageIndex, int pageSize);
 
         Task BuyBook(int bookId, int count);
     }
