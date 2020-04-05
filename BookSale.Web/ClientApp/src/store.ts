@@ -16,7 +16,7 @@ export function getDefaultState(): IStore {
 
 export function getDefaultPromocodeState(): IPromocodeStore {
     return {
-        promoCode: undefined,
+        promoCode: '',
         getPromocodeRequestExecutionStatus: RequestExecutionStatus.Undefined,
     }
 }

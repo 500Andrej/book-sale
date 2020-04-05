@@ -6,24 +6,47 @@ export enum RequestExecutionStatus {
 }
 
 export interface IPromocodeStore {
-    promoCode?: string;
+    promoCode: string;
     getPromocodeRequestExecutionStatus: RequestExecutionStatus;
 }
 
 export interface IStore {
     promoCode?: string;
 
-    catalog: IBook[];
-    basket: IBook[];
+    catalog: BookModel[];
+    basket: BookModel[];
     getBooksRequestExecutionStatus: RequestExecutionStatus;
 }
 
 export interface IBook {
+    id: number;
+    name: string;
+    releaseDate: string;
+    isbn: string;
+    picture: string;
+    amount: number;
+    count: number;
+    authors: string[];
+}
+
+export class BookModel {
+    id: number;
     name: string;
     releaseDate: Date;
     isbn: string;
     picture: string;
     amount: number;
     count: number;
-    authors: string[];
-} 
+    authors: string;
+
+    constructor(bookDto: IBook) {
+        this.id = bookDto.id;
+        this.name = bookDto.name;
+        this.releaseDate = new Date(bookDto.releaseDate);
+        this.isbn = bookDto.isbn;
+        this.picture = bookDto.picture ? bookDto.picture : 'https://react.semantic-ui.com/images/avatar/large/steve.jpg';
+        this.amount = bookDto.amount;
+        this.count = bookDto.count;
+        this.authors = bookDto.authors.join(", ");
+    }
+}

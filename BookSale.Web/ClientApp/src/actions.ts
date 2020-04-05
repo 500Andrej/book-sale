@@ -1,5 +1,5 @@
 import { runInAction } from 'mobx';
-import { RequestExecutionStatus } from './types';
+import { RequestExecutionStatus, BookModel, IBook } from './types';
 import { Store, PromocodeStore } from './store';
 import { handleResponse } from './utils';
 
@@ -20,6 +20,18 @@ export async function getPromocode() {
     }
 } 
 
+export function SetPromocode(value: string){
+    runInAction(() => {
+        PromocodeStore.promoCode = value;
+    });
+}
+
+export function Login(){
+    runInAction(() => {
+        Store.promoCode = PromocodeStore.promoCode;
+    });
+}
+
 export async function getCatalog() {
     runInAction(() => Store.getBooksRequestExecutionStatus = RequestExecutionStatus.InProgress);
     try {
@@ -27,7 +39,7 @@ export async function getCatalog() {
         var books = await handleResponse(responce);
         if (books) {
             runInAction(() => {
-                Store.catalog = books;
+                Store.catalog = books.map((book: IBook) => new BookModel(book));
                 Store.getBooksRequestExecutionStatus = RequestExecutionStatus.Success;
             });
         }

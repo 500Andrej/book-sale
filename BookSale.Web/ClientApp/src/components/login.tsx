@@ -1,12 +1,12 @@
 import React from 'react';
-import { Segment, Input, Divider, Button } from "semantic-ui-react";
-import { RequestExecutionStatus } from './types';
+import { Segment, Input, Divider, Button, Message } from "semantic-ui-react";
+import { RequestExecutionStatus } from '../types';
 import { observer } from 'mobx-react';
-import { Store, PromocodeStore } from './store';
-import { getPromocode } from './actions';
+import { PromocodeStore } from '../store';
+import { getPromocode, SetPromocode, Login as LoginAction } from '../actions';
 
 interface ILoginProps {
-    promoCode?: string;
+    promoCode: string;
     getPromocodeRequestExecutionStatus: RequestExecutionStatus;
 }
 
@@ -14,9 +14,10 @@ export function LoginComponent(props: ILoginProps) {
     return (
         <Segment basic textAlign='center' >
             <Input
-                action={{ color: 'blue', content: 'Войти' }}
+                action={{ color: 'blue', content: 'Войти', onClick: () => LoginAction(), disabled: !props.promoCode}}
                 placeholder='Промокод'
                 value={props.promoCode}
+                onChange={(_, action)=> SetPromocode(action.value)}
             />
 
             <Divider horizontal>Или</Divider>
@@ -27,8 +28,13 @@ export function LoginComponent(props: ILoginProps) {
                 icon='add'
                 labelPosition='left'
                 onClick={() => getPromocode()}
-                disabled={props.getPromocodeRequestExecutionStatus === RequestExecutionStatus.InProgress || props.getPromocodeRequestExecutionStatus === RequestExecutionStatus.Success}
+                disabled={props.getPromocodeRequestExecutionStatus === RequestExecutionStatus.InProgress}
             />
+            {props.getPromocodeRequestExecutionStatus === RequestExecutionStatus.Fail
+                ? <Message error>
+                    Во время получения промокода возникла ошибка.
+                </Message>
+                : null}
         </Segment>
     )
 }
