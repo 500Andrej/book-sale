@@ -1,6 +1,6 @@
 import React from 'react';
-import { Table, Label, Menu, Icon, Message, Dimmer, Loader, Image, Button } from 'semantic-ui-react';
-import { IBook, RequestExecutionStatus, BookModel } from '../types';
+import { Table, Menu, Message, Dimmer, Loader, Image, Button } from 'semantic-ui-react';
+import { RequestExecutionStatus, BookModel } from '../types';
 import { getCatalog, addToBasket } from '../actions';
 import { observer } from 'mobx-react';
 import { Store } from '../store';

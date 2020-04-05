@@ -71,7 +71,7 @@ export function addToBasket(book: BookModel) {
 
 export function removeFromBasket(book: BookModel) {
     runInAction(() => {
-        Store.basket = Store.basket.filter(b => b != book)
+        Store.basket = Store.basket.filter(b => b !== book)
     })
 }
 
